@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Countdown</title>
+    <meta charset="UTF-8">
+    <script>
+      const showLimit = false;
+      function pad(num, size) {
+        var s = num+"";
+        while (s.length < size) s = "0" + s;
+        return s;
+      }
+      function twoRandoms(num) {
+        var x = Math.floor(Math.random() * num) + 1;
+        var y = Math.floor(Math.random() * num) + 1;
+        if (x<y) {
+          return [x,y];
+        }
+        return [y,x];
+      }
+      function init() {
+        const e = document.getElementById("main");
+        const r = twoRandoms(8);
+        var limit = r[0];
+        var sec = r[1];
+        const reset = () => {
+          const r = twoRandoms(59);
+          limit = r[0];
+          sec = r[1];
+        };
+        const subAndRender = () => {
+          sec = sec - 1;
+          if (sec <= limit) {
+            reset();
+          }
+          e.innerHTML = String(pad(0,2) + ":" + pad(sec,2) + " " +
+            (showLimit ? " limit: " + pad(limit,2) : ""));
+        };
+        setInterval(subAndRender, 1000)
+        // setInterval(reset, 10000)
+        subAndRender();
+      }
+    </script>
+  </head>
+  <body onLoad=init()>
+    <div id="main" style="font-size: 5em">
+      Loading...
+    </div>
+  </body>
+</html>
