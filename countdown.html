@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <script>
       const showLimit = false;
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialTime = parseInt(urlParams.get('t'));
       function pad(num, size) {
         var s = num+"";
         while (s.length < size) s = "0" + s;
@@ -23,6 +25,10 @@
         const r = twoRandoms(8);
         var limit = r[0];
         var sec = r[1];
+        if (!isNaN(initialTime)) {
+            sec = initialTime;
+            limit = Math.floor(Math.random() * initialTime / 2) + 1;
+        }
         const reset = () => {
           const r = twoRandoms(59);
           limit = r[0];
