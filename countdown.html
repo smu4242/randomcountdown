@@ -6,7 +6,15 @@
     <script>
       const showLimit = false;
       const urlParams = new URLSearchParams(window.location.search);
-      const initialTime = parseInt(urlParams.get('t'));
+      const getIntParam = (name, default1) => {
+        const tmp = parseInt(urlParams.get(name));
+        if (isNaN(tmp)) {
+          return default1;
+        }
+        return tmp;
+      };
+      const initialMax = getIntParam('max', 59);
+      const minute = getIntParam('minute', 1);
       function pad(num, size) {
         var s = num+"";
         while (s.length < size) s = "0" + s;
@@ -22,15 +30,10 @@
       }
       function init() {
         const e = document.getElementById("main");
-        const r = twoRandoms(8);
-        var limit = r[0];
-        var sec = r[1];
-        if (!isNaN(initialTime)) {
-            sec = initialTime;
-            limit = Math.floor(Math.random() * initialTime / 2) + 1;
-        }
+        var limit = 0
+        var sec = limit;
         const reset = () => {
-          const r = twoRandoms(59);
+          const r = twoRandoms(initialMax);
           limit = r[0];
           sec = r[1];
         };
@@ -39,7 +42,7 @@
           if (sec <= limit) {
             reset();
           }
-          e.innerHTML = String(pad(0,2) + ":" + pad(sec,2) + " " +
+          e.innerHTML = String(pad(minute,2) + ":" + pad(sec,2) + " " +
             (showLimit ? " limit: " + pad(limit,2) : ""));
         };
         setInterval(subAndRender, 1000)
