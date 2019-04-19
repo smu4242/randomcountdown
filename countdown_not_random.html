@@ -27,7 +27,7 @@
         const subAndRender = () => {
           sec = sec - 1;
           const minutes = Math.floor(sec / 60);
-          const seconds = time - minutes * 60;
+          const seconds = sec - minutes * 60;
           e.innerHTML = String(pad(minutes,2) + ":" + pad(seconds,2) + " " +
             (showLimit ? " limit: " + pad(limit,2) : ""));
         };
