@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Countdown</title>
+    <meta charset="UTF-8">
+    <script>
+      const showLimit = false;
+      const urlParams = new URLSearchParams(window.location.search);
+      const getIntParam = (name, default1) => {
+        const tmp = parseInt(urlParams.get(name));
+        if (isNaN(tmp)) {
+          return default1;
+        }
+        return tmp;
+      };
+      const initialMax = getIntParam('max', 59);
+      const minute = getIntParam('minute', 1);
+      function pad(num, size) {
+        var s = num+"";
+        while (s.length < size) s = "0" + s;
+        return s;
+      }
+      function init() {
+        const e = document.getElementById("main");
+        var limit = 0
+        var sec = limit;
+        const subAndRender = () => {
+          sec = sec - 1;
+          const minutes = Math.floor(sec / 60);
+          const seconds = time - minutes * 60;
+          e.innerHTML = String(pad(minutes,2) + ":" + pad(seconds,2) + " " +
+            (showLimit ? " limit: " + pad(limit,2) : ""));
+        };
+        setInterval(subAndRender, 1000)
+        subAndRender();
+      }
+    </script>
+  </head>
+  <body onLoad=init()>
+    <div id="main" style="font-size: 5em">
+      Loading...
+    </div>
+  </body>
+</html>
