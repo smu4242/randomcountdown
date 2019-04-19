@@ -22,8 +22,7 @@
       }
       function init() {
         const e = document.getElementById("main");
-        var limit = 0
-        var sec = limit;
+        var sec = minute*60 + initialMax;
         const subAndRender = () => {
           sec = sec - 1;
           const minutes = Math.floor(sec / 60);
